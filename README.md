@@ -4,16 +4,16 @@
 # Fraud Investigator Assistant Agent 
 
 ## About the solution
-The **Fraud Investigator Assistant** demonstrate how customers can revolutionize their fraud investigation process using AWS Bedrock, MCP (Model Context Protocol) servers, and Strands expert agents. Conducting investigation on fraud cases can take a lot of time. In addition, following various compliance and security policy checks requires specialty skill in each domain. Building an AI expert network can accelerate this work and allow customer to run investigations faster. This innovative approach combining custom MCP servers for private data with open-source MCPs for public information gathering, dramatically reducing investigation timelines.
+The **Fraud Investigator Assistant** demonstrates how customers can revolutionize their fraud investigation process using AWS Bedrock, MCP (Model Context Protocol) servers, and Strands expert agents. Conducting investigation on fraud cases can take a lot of time. In addition, following various compliance and security policy checks requires specialized skills in each domain. Building an AI expert network can accelerate this work and allow customers to run investigations faster. This innovative approach combining custom MCP servers for private data with open-source MCPs for public information-gathering, dramatically reducing investigation processing timelines.
 
 Assistance capabilities:
 - **Orchestrator Agent** - To decide which expert/s should be used when processing a request and which policy needs to be enforced.
-- **Transactional Expert** - Analyzing merchant transactions & authorization data
-- **Merchant Indicators Expert** - retrieve and analyze statistical aggregated data on merchants
-- **Online Search Expert** - Perform merchant verification and online appearance
+- **Transactional Expert** - Analyzing merchant transactions & authorization data.
+- **Merchant Indicators Expert** - retrieve and analyze statistical aggregated data on merchants.
+- **Online Search Expert** - Perform merchant verification and online appearance.
 - **Policies Knowledge Base** - Allow scaling and executing of company policies for conducting investigation of a particular use case. 
-- **Providing Intelligent Insights** - Through conversational AI
-- **Integrating Tools** - For external data sources via MCP protocol
+- **Providing Intelligent Insights** - Through conversational AI.
+- **Integrating Tools** - For external data sources via MCP protocol.
 
 ## Table of Contents
 1. [Architecture & Data Flow](#Architecture)
@@ -105,7 +105,7 @@ Fraud AI assistance process user query
 
 
 
-## Screen shoots <a name="Screenshots"></a>
+## Screenshots <a name="Screenshots"></a>
 Fetching merchant metadata information
 ![Merchant metadata](/images/screenshots/screen1.png)
 
@@ -121,7 +121,7 @@ Fetch last year merchant total dispute volume
 Fetch realtime online website content
 ![online webpage](/images/screenshots/screen5.png)
 
-Perform online search according to knowledegbase policy
+Perform online search according to knowledge base policy
 ![online search](/images/screenshots/screen7.png)
 
 ## Tool Versions <a name="Versions"></a>
@@ -263,7 +263,7 @@ The system includes comprehensive test cases for:
 - Web search functionality
 
 
-### Using knowledgebase policies
+### Using knowledge base policies
 Before testing knowledge policy scenario make sure to upload a policy to the S3 bucket - see example `/data/knowledge-base/`
 After uploading the policies you must sync the agent with the knowledge base change:
 
@@ -289,7 +289,7 @@ make prep-ui-env
 If you switch cloud environments you need to run this otherwise it will try to contact the agent related to the previously used cloud environment.
 
 ### Manually Create .env
-First make a copy of ```.env.TEMPLATE``` and rename is ```.env```. Then, add the agent id and alias id. I have an example below.
+First make a copy of ```.env.TEMPLATE``` and rename it to ```.env```. Then, add the agent id and alias id. I have an example below.
 ```
 # The ID of the agent.
 BEDROCK_AGENT_ID=XXXXXXXXX
@@ -333,7 +333,7 @@ make clean-tf-cache
 #### Networking
 
 1. Restrict network access of OpenSearch collection to Bedrock service and VPC endpoint where you have CICD pipeline. [Documentation](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-network.html)
-2. Update VPC to use proxy for outbound traffix instead of NAT gateway.
+2. Update VPC to use proxy for outbound traffic instead of NAT gateway.
 
 #### Identity and Access Management
 1. Further restrict IAM permissions. For example, the Bedrock Agent role currently allows for all models and inference profiles to allow for testing and expirmentation but you will want to limit that to your region.
@@ -349,7 +349,7 @@ This library is licensed under the MIT-0 License.
 
 
 ## Dependencies
-This solution use several 3rd party packages / libraries, all of which are open sourced, MIT License or Ap :
+This solution uses several 3rd party packages / libraries, all of which are open sourced, MIT License or Ap :
 
 1. Fetch MCP - https://pypi.org/project/mcp-server-fetch/
 2. Brave Search - https://www.npmjs.com/package/@modelcontextprotocol/server-brave-search 
