@@ -1,0 +1,102 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
+# checkov:skip=CKV_OPENAPI_4: This is a Bedrock action groups schema, not a traditional OpenAPI implementation
+# checkov:skip=CKV_OPENAPI_5: This is a Bedrock action groups schema, not a traditional OpenAPI implementation
+openapi: 3.0.0
+info:
+  title: Support Agent
+  version: 1.0.0
+  description: Query different support agents with questions.
+
+paths:
+  merchant_portfolio_agent:
+    post:
+      summary: Query a merchant portfolio expert
+      description: This agent can answer questions related to merchants portfolio and fetch data such as the merchant name, address, website, phone number and other merchant metadata
+      operationId: queryMerchantPortfolioAgent
+      requestBody:
+        $ref: '#/components/requestBodies/Agent'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+  
+  merchant_stats_agent:
+    post:
+      summary: Query a merchant aggregated data expert
+      description: This agent can answer questions related to aggregated merchant transaction data such as total sales for the last year, month, or day. The aggregated data is on Credit Sales Volume, Credit Refunds Volume, Credit Total Disputes(chargeback) Count, Credit Total Disputes Volume, Authorizations Volume, Authorizations Decline Volume and more. If the query is related to data aggregated over a period of time, use this agent.
+      operationId: queryMerchantStatAgent
+      requestBody:
+        $ref: '#/components/requestBodies/Agent'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+  transaction_agent:
+    post:
+      summary: Query a merchant transaction expert
+      description: This agent can answer questions related to raw transactions that the merchant process such as authorizations and settlements data but it can't answer questions about merchant aggregated data such average, total , min, max transactions
+      operationId: queryTransactionAgent
+      requestBody:
+        $ref: '#/components/requestBodies/Agent'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+          
+  internet_agent:
+    post:
+      summary: Query an internet assistant
+      description: This agent answer questions about online data related to the merchant such as- perform online searches and fetch different website sites content
+      operationId: queryInternetAgent
+      requestBody:
+        $ref: '#/components/requestBodies/Agent'
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessResponse'
+        '500':
+          $ref: '#/components/responses/ErrorResponse'
+
+components:
+  requestBodies:
+    Agent:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - query
+            properties:
+              query:
+                type: string
+                description: Question for the support agent
+
+  responses:
+    SuccessResponse:
+      description: Agent response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                description: Agent query results
+
+    ErrorResponse:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - error
+            properties:
+              error:
+                type: string
+                description: Error message

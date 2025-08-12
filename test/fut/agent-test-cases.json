@@ -1,0 +1,29 @@
+{
+    "tests": [
+        {
+            "question": "Tell me some details on the transaction with id 1001.",
+            "expected_phrases": [
+                "USD",
+                "Credit",
+                "2023-04-15",
+                "CUST001",
+                "14:32:15",
+                "78.99",
+                "LOC12345",
+                "5678",
+                "In-store"
+            ]
+        },
+        {
+            "question": "Which merchants have a zip_code of 97201?",
+            "expected_phrases": [
+                "Corner Cafe",
+                "123 Main St",
+                "Portland",
+                "OR",
+                "www.cornercafe.com",
+                "503-555-0101"
+            ]
+        }
+    ]
+}

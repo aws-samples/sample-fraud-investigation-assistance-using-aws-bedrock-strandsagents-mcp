@@ -1,0 +1,154 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Terraform back end resources"
+
+Parameters:
+  bucketName:
+    Type: String
+    Description: The Terraform back end S3 bucket name
+  enableBucketAccessLogs:
+    Type: String
+    Description: Set to true to enable S3 bucket access logging
+    Default: "false"
+    AllowedValues:
+      - "true"
+      - "false"
+    ConstraintDescription: "must specify true or false."
+
+Conditions:
+  LogS3Access: !Equals
+    - !Ref enableBucketAccessLogs
+    - "true"
+
+Resources:
+  TerraformStateCmk:
+    Type: "AWS::KMS::Key"
+    Properties:
+      EnableKeyRotation: true
+      KeyPolicy:
+        Version: 2012-10-17
+        Id: tf_backend_key
+        Statement:
+          - Sid: Enable IAM User Permissions
+            Effect: Allow
+            Principal:
+              AWS: !Join
+                - ""
+                - - "arn:aws:iam::"
+                  - !Ref "AWS::AccountId"
+                  - ":root"
+            Action: "kms:*"
+            Resource: "*"
+      Tags:
+        - Key: Name
+          Value: !Sub "${bucketName}-key"
+
+  TerraformStateCmkAlias:
+    Type: "AWS::KMS::Alias"
+    Properties:
+      AliasName: !Sub "alias/${bucketName}-key"
+      TargetKeyId: !Ref TerraformStateCmk
+
+  LoggingBucket:
+    Type: "AWS::S3::Bucket"
+    Condition: LogS3Access
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W35
+            reason: Bucket access logging not required for this logging bucket
+    Properties:
+      BucketName: !Sub "${bucketName}-${AWS::AccountId}-${AWS::Region}-logs"
+      # Log buckets cannot use KMS/CMK
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+
+  LoggingBucketPolicy:
+    Type: "AWS::S3::BucketPolicy"
+    Condition: LogS3Access
+    Properties:
+      Bucket: !Ref LoggingBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - "s3:PutObject"
+            Effect: Allow
+            Principal:
+              Service: logging.s3.amazonaws.com
+            Resource: !Join
+              - ""
+              - - "arn:aws:s3:::"
+                - !Ref LoggingBucket
+                - /*
+            Condition:
+              ArnLike:
+                "aws:SourceArn": !GetAtt
+                  - TerraformStateFileS3Bucket
+                  - Arn
+              StringEquals:
+                "aws:SourceAccount": !Sub "${AWS::AccountId}"
+
+  TerraformStateFileS3Bucket:
+    Type: AWS::S3::Bucket
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W35
+            reason: Access logging is conditionally configured based on parameter
+          - id: W51
+            reason: Bucket access controlled by same-account IAM Identity policy
+    Properties:
+      BucketName: !Sub "${bucketName}-${AWS::AccountId}-${AWS::Region}"
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              KMSMasterKeyID: !Ref TerraformStateCmk
+              SSEAlgorithm: aws:kms
+      LoggingConfiguration: !If
+        - LogS3Access
+        - DestinationBucketName: !Ref LoggingBucket
+          LogFilePrefix: log
+        - !Ref "AWS::NoValue"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: True
+        BlockPublicPolicy: True
+        IgnorePublicAcls: True
+        RestrictPublicBuckets: True
+
+  TerraformStateLockDynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Metadata:
+      cfn_nag:
+        rules_to_suppress:
+          - id: W28
+            reason: Replacing this resource using a CloudFormation update is unlikely for this use case
+    Properties:
+      TableName: !Sub "${bucketName}-lock"
+      AttributeDefinitions:
+        - AttributeName: LockID
+          AttributeType: S
+      KeySchema:
+        - AttributeName: LockID
+          KeyType: HASH
+      BillingMode: PROVISIONED
+      ProvisionedThroughput:
+        ReadCapacityUnits: 15
+        WriteCapacityUnits: 15
+      SSESpecification:
+        KMSMasterKeyId: !Ref TerraformStateCmk
+        SSEEnabled: true
+        SSEType: "KMS"
+      PointInTimeRecoverySpecification:
+         PointInTimeRecoveryEnabled: true
