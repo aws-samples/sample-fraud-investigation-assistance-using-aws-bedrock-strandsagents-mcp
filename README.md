@@ -105,7 +105,7 @@ Fraud AI assistance process user query
 
 
 
-## Screen shoots<a name="Screenshots>
+## Screen shoots <a name="Screenshots"></a>
 Fetching merchant metadata information
 ![Merchant metadata](/images/screenshots/screen1.png)
 
