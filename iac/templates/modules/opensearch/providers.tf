@@ -1,0 +1,20 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: MIT-0
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.48"
+    }
+    opensearch = {
+      source  = "opensearch-project/opensearch"
+      version = "= 2.2.0"
+    }
+    awscc = {
+      source  = "hashicorp/awscc"
+      version = "~> 1.0"
+    }
+  }
+  required_version = "~> 1.0"
+}

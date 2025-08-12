@@ -1,0 +1,4 @@
+[
+    "bucketName=###TF_S3_BACKEND_NAME###",
+    "enableBucketAccessLogs=false"
+]

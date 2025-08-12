@@ -1,0 +1,43 @@
+[{
+	"policyName": "execute online search",
+	"policyDate": "06-17-2025 2:30pm",
+	"intent": [
+		"run an online search on merchant",
+		"can you search online reference about the merchant",
+		"provide me with an online search overview about merchant"
+	],
+	"steps": [
+		"First step, retrieve the merchant online relevant fields such as website url, name, phone number, address using the tool get_merchant_metadata and provide the merchant id",
+		"Next, using the brave_online_search tool - run an online search and pass all the name, phone number address and website url of the merchant as argument",
+		"Collect all the results from brave_online_search and return it back to the caller"
+	]
+},
+{
+	"policyName": "validate merchant contact information",
+	"policyDate": "06-17-2025 2:30pm",
+	"intent": [
+		"validate the merchant online contact information",
+		"check if the merchant website is legit",
+		"validate if the merchant address on file match the merchant address online"
+	],
+	"steps": [
+		"First step, retrieve the merchant online relevant fields such as website url, name, phone number, address using the tool get_merchant_metadata and provide the merchant id",
+		"Next, using the fetch tool - run a fetch on the merchant website url, if no url is provided return an error with the statement: no website on file, can't validate information",
+		"from the retrieved html of fetch tool look for contact details section and return the phone number, address, email found"
+	]
+},
+{
+	"policyName": "auth decline policy",
+	"policyDate": "06-17-2025 2:30pm",
+	"intent": [
+		"check merchant authorization transaction for fraud",
+		"check merchant auth decline",
+		"does the merchant have authorization decline transactions in the last 30 days"
+	],
+	"steps": [
+		"First step, retrieve the merchant authorization history and last 30 days chargeback count",
+		"filter the decline authorization transaction and return all transaction in the last 30 days",
+		"show the decline reasons for all decline authorization transactions"
+	]
+}
+]

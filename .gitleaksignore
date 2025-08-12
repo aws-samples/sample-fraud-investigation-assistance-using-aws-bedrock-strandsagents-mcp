@@ -1,0 +1,5 @@
+environment/README.md:hashicorp-tf-password:160
+environment/README.md:hashicorp-tf-password:161
+8a2e8fe9ff49424b065bfa7953037e8b8bce2827:app/containers/transaction_mcp/.env:generic-api-key:2
+6ffaef5d429d45fdfc6cd95608f80205e63b81a7:iac/templates/modules/secretsmanager_secret/README.md:hashicorp-tf-password:21
+8e3ac60c43b97781229785fd7c4875a9ce9d3fd5:app/lambdas/mcp-client/handler.py:generic-api-key:11

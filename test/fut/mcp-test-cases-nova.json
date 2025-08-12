@@ -1,0 +1,791 @@
+{
+  "test_cases": [
+    {
+      "name": "List merchant tools",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "merchant_action_group",
+        "apiPath": "/merchant_agent",
+        "httpMethod": "POST",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "list all available merchant tools"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "role": "assistant",
+        "content": [
+          {
+            "text_contains": [
+              "get_merchant_stats",
+              "filter_merchant_stats",
+              "search_merchants",
+              "get_merchant_details",
+              "filter_data",
+              "get_recent_chargebacks",
+              "get_refund_summary"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get merchant stats MRCH2885",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "give me merchant stats for MRCH2885",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "merchant_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/merchant_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get merchant stats for MRCH2885"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "Credit Sales","Credit Refunds","Credit Disputes","Credit Reversals","Entry Methods","E-commerce","Chipped","Swiped","Authorizations","Declines Count",
+              "Declines Volume","Declines Percent","Forced Sales","Debit Sales","Debit Refunds","Debit Disputes"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Filter Merchant Stats MRCH2885",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "give me details on the merchant stats with number MRCH2885",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "merchant_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/merchant_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "filter merchant stats for merchant number MRCH2885 and stat_date is Year and metric_type is credit_sales"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "Credit Sales Count: 0",
+              "Credit Sales Volume: $0.00","Credit Sales Average Ticket: $0.00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Search Merchant with given fields",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "search merchant information",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "merchant_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/merchant_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "search for merchant with business name containing SPORT"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "SPORTSPRINT",
+              "211 S. MAIN ST O FALLON MO", 
+              "6362405000", "O FALLON", "63366", 
+              "5655",
+              "Merchant Category Description: SPORTS&RIDING APPAREL", 
+              "Merchant ID Status: 16",
+              "Account Status: 16", "Number of Outlets: 3",
+              "First Post Date: 2016-08-06","Installation Date: 2016-07-28", "Last Post Date: 2025-05-01",
+              "Created At: 2025-06-05 19:58:18.793798+00:00", "Updated At: 2025-06-05 19:58:18.793798+00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get merchant details by merchant number MRCH2885",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "give me details on the merchant with number MRCH2885",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "merchant_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/merchant_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get merchant details for merchant number MRCH2885"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "Affiliate Name: SPORTSPRINT",
+              "Business Name: SPORTSPRINT",
+              "Business Address: 211 S. MAIN ST O FALLON MO","Business City: O FALLON","Business Zip Code: 63366","Business Phone: 6362405000","Merchant Category Code: 5655",
+              "Merchant Category Description: SPORTS&RIDING APPAREL", "Merchant ID Status: 16", "Account Status: 16", "Number of Outlets: 3", "Chain Name: 434180090889", 
+              "First Post Date: 2016-08-06", "Installation Date: 2016-07-28", "Last Post Date: 2025-05-01", "Last Settlement Date: 2025-04-30",
+              "Created At: 2025-06-05 19:58:18.793798+00:00", "Updated At: 2025-06-05 19:58:18.793798+00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Filter merchant by merchant number MRCH2885 and business name",
+      "request_payload": {
+        "messageVersion": "1.0",  
+        "inputText": "filter details of merchant",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "merchant_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/merchant_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "filter merchant data for merchant number MRCH2885 for Business_Name field"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,    
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "business name is SPORTSPRINT"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get recent chargebacks for merchant MRCH2885",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "recent chargebacks for merchant MRCH2885",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "merchant_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/merchant_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get recent chargebacks for merchant number MRCH2885"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "Daily Chargebacks", "Credit Disputes Count: 0", "Credit Disputes Volume: $0.00",
+              "Credit Disputes Average Ticket: $0.00", "Credit Disputes Percent: 0.00", "Debit Disputes Count: 0",
+              "Debit Disputes Volume: $0.00", "Debit Disputes Percent: 0.00", "Monthly Chargebacks",
+              "Total Disputes: 0", "Total Volume: $0.00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get refund summary for merchant number MRCH2885",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "refund summary for MRCH2885",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "merchant_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/merchant_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get refund summary for merchant number MRCH2885"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "Total Refunds : 0",
+              "Total Volume : $0.00",
+              "Average Refund : $0.00",
+              "Credit Refunds : - Count : 0 - Volume : $0.00  - Percent : 0.00%",
+              "Debit Refunds : - Count : 0  - Volume : $0.00  - Percent : 0.00%"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Merchant error case - no tool name",
+      "request_payload": 
+      {
+        "messageVersion": "1.0",
+        "inputText": "give some more details on merchant with id M0001",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": 
+        {
+          "name": "fraud-ag-testing-fraud-agent",
+          "version": "DRAFT","id": "3NGDQ91O6S","alias": "TSTALIASID"
+        },
+        "actionGroup": "merchant_action_group","httpMethod": "POST","apiPath": "/execute_tool"
+      },
+      "expected_status": 400,
+      "expected_response_body": "{\"error\": \"Unknown operation: /execute_tool\"}"
+    },
+    {
+      "name": "List transactions tools",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "transaction_action_group",
+        "inputText": "list all available transaction tools",
+        "httpMethod": "POST",
+        "apiPath": "/transaction_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "list all available transaction tools"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "role": "assistant",
+        "content": [
+          {
+            "text_contains": [
+              "get_authorization_transaction_by_id : Get the authorization transaction details",
+              "get_settlement_transaction_by_id : Get the settlement transaction details",
+              "get_transactions_by_merchant : Get all transactions for a merchant",
+              "get_recent_transactions : Get recent transactions for a merchant",
+              "get_decline_analysis : Get decline reason analysis for a merchant",
+              "filter_transactions : Filters transactions based on specified criteria"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get authorization transaction id 1",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "give me details on the authorization transaction with id '1'",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "transaction_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/transaction_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get authorization transaction details for id '1'"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "role": "assistant",
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "Account Number: XXXXXXXXXXXX0351",
+              "Amount: 689.80", "Currency: USD", "Transaction Type: Purchase", "Payment Method: EMV",
+              "Card Expiry Date: 4/28", "Authorization Code: CL58XZ", "Transaction Date and Time: May 5, 2025, at 5:02:24 PM UTC",
+              "Approval Status: Approved", "Decline Reason: None", "Created At: June 5, 2025, at 7:58:18 PM UTC",
+              "Updated At: June 5, 2025, at 7:58:18 PM UTC"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get settlement transaction id 1",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "give me details on the settlement transaction with id 1",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "transaction_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/transaction_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get settlement transaction details for id 1"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "Account Number: XXXXXXXXXXXX3550",
+              "Transaction Date: April 30, 2025", "Processed Amount: 226.26", "Authorization Amount: 226.26",
+              "Transaction Status: Processed", "Transaction Type: Purchase", "Card Issue Type: Credit",
+              "Transaction Mode: Electronic", "Payment Method: Contactless Chip", "Authorization Code: 02477D",
+              "Card Country: United States of America", "Card Class: Consumer"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get settlement transaction deatils by merchant number MRCH2885",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "give me details on the settlement transaction by merchant number",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "transaction_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/transaction_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get settlement transaction details for merchant number MRCH2885"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "Transaction ID 1",
+              "Date: April 30, 2025", "Amount: 226.26", "Payment Method: Contactless Chip", "Card Type: Credit (Consumer)",
+              "Transaction Status: Processed", "Authorization Code: 02477D", "Transaction ID 2",
+              "Amount: 426.70", "Payment Method: EMV", "Card Type: Credit (Business)", "Authorization Code: 061186",
+              "Transaction ID 3", "Date: April 29, 2025", "Amount: 288.25", "Authorization Code: 02992Q", 
+              "Transaction ID 4", "Date: April 25, 2025", "Amount: 186.00", "Payment Method: Manual",
+              "Card Type: Debit (Consumer)", "Authorization Code: 077597", "Transaction ID 5",
+              "Date: April 24, 2025", "Amount: 154.42", "Authorization Code: 182502", 
+              "Total number of settlement transactions: 5", "Total settlement amount: 1,281.63"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get authorization transaction deatils by merchant number MRCH2885",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "give me details on the authorization transaction by merchant number",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "transaction_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/transaction_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get authorization transaction details for merchant number MRCH2885"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "Transaction ID: 1",
+              "Account Number: XXXXXXXXXXXX0351", "Amount: 689.80", "Currency: USD", "Transaction Type: Purchase",
+              "Payment Method: EMV", "Card Expiry Date: 4/28", "Authorization Code: CL58XZ",
+              "Transaction Date and Time: May 5, 2025, at 17:02:24 UTC", "Approval Status: Approved",
+              "Decline Reason: None"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Filter transactions by field and value",
+      "request_payload": {
+        "messageVersion": "1.0", 
+        "inputText": "filter transaction details based on field",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "transaction_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/transaction_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "filter transactions for amount 500"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "Transaction ID: 24", 
+              "Merchant Number: MRCH2885", 
+              "Account Number: XXXXXXXXXXXX2013", 
+              "Amount: 500.00 USD", 
+              "Transaction Type: Purchase Payment", "Method: Manual Card", "Expiry Date: 9/25", "Auth Code: 033779", "Transaction Datetime: 2025-04-05 01:00:46+00:00", "Approval Status: Approved", "Created At: 2025-06-05 19:58:18.878271+00:00", "Transaction ID: 25", "Merchant Number: MRCH2885", "Account Number: XXXXXXXXXXXX2013", "Amount: 500.00 USD", "Transaction Type: Purchase", "Payment Method: Manual Card", "Expiry Date: 4/25", "Transaction Datetime: 2025-04-05 01:00:13+00:00", "Approval Status: Declined", "Decline Reason: Expired Card", "Created At: 2025-06-05 19:58:18.878271+00:00", "Updated At: 2025-06-05 19:58:18.878271+00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get recent authorization transactions for merchant number MRCH2885",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "get recent authorization transactions for MRCH2885",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "transaction_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/transaction_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get recent authorization transactions for MRCH2885"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+               "Transaction ID: 1",
+                "Amount: 689.80",   "Transaction Type: Purchase",   "Payment Method: EMV",  
+                "Card Expiry Date: 4/28",   "Auth Code: CL58XZ",   
+                "Transaction Datetime: 2025-05-05 17:02:24+00:00",   "Approval Status: Approved", 
+                "Transaction ID: 2",   "Amount: 426.70",   "Transaction Type: Pre Auth Complete",   
+                "Payment Method: EMV",   "Card Expiry Date: 9/25",   "Auth Code: 061186",   
+                "Transaction Datetime: 2025-05-01 05:30:11+00:00",   "Approval Status: Approved", 
+                "Transaction ID: 4",   "Amount: 426.70",   "Transaction Type: Purchase ",  
+                "Payment Method: EMV",   "Card Expiry Date: 9/25",   "Auth Code: 061186",   
+                "Transaction Datetime: 2025-04-30 21:59:44+00:00",   "Approval Status: Approved", 
+                "Transaction ID: 3",   "Amount: 226.26",   "Transaction Type: Purchase",   
+                "Payment Method: Contactless Chip",   "Card Expiry Date: 7/29",   "Auth Code: 02477D",   
+                "Transaction Datetime: 2025-04-30 19:54:16+00:00",   "Approval Status: Approved", 
+                "Transaction ID: 5",   "Amount: 288.25",   "Transaction Type: Purchase",   
+                "Payment Method: Contactless Chip",   "Card Expiry Date: 7/25",   "Auth Code: 02992Q",  
+                "Transaction Datetime: 2025-04-29 19:17:49+00:00",   
+                "Approval Status: Approved"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get recent settlement transactions for merchant number MRCH2885",
+      "request_payload": {
+        "messageVersion": "1.0",  
+        "inputText": "get recent settlement transactions for MRCH2885",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "transaction_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/transaction_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get recent settlement transactions for MRCH2885"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "Transaction on 2025-04-30", "Amount: 226.26", "Account Number: XXXXXXXXXXXX3550",   
+              "Payment Method: Contactless Chip", "Card Type: Credit (Consumer)",
+              "Transaction on 2025-04-30", "Amount: 426.70",  "Account Number: XXXXXXXXXXXX4299", 
+              "Payment Method: EMV", "Card Type: Credit (Business)",
+              "Transaction on 2025-04-29", "Amount: 288.25",
+              "Account Number: XXXXXXXXXXXX5649", "Transaction on 2025-04-25",
+              "Amount: 186.00", "Account Number: XXXXXXXXXXXX7828",
+              "Payment Method: Manual", "Card Type: Debit (Consumer)",
+              "Transaction on 2025-04-24", "Amount: 154.42", "Account Number: XXXXXXXXXXXX2032"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Get decline analysis for merchant number MRCH2885",
+      "request_payload": {
+        "messageVersion": "1.0",
+        "inputText": "get decline analysis for MRCH2885",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": {},
+        "actionGroup": "transaction_action_group",
+        "httpMethod": "POST",
+        "apiPath": "/transaction_agent",
+        "parameters": [
+          {
+            "name": "query",
+            "type": "string",
+            "value": "get decline analysis for merchant number MRCH2885 from 2025-01-01 to 2025-01-31"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "properties": []
+            }
+          }
+        }
+      },
+      "expected_status": 200,
+      "expected_response_contains": {
+        "content": [
+          {
+            "text_contains": [
+              "MRCH2885",
+              "from 2025-01-01 to 2025-01-31",
+              "Total declines: 4",
+              "Unique reasons: 1"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "Transaction error case - no tool name",
+      "request_payload": 
+      {
+        "messageVersion": "1.0",
+        "inputText": "give some more details on transation with id 1001",
+        "sessionAttributes": {},
+        "promptSessionAttributes": {},
+        "sessionId": "XXXXXXXXXX",
+        "agent": 
+        {
+          "name": "fraud-ag-testing-fraud-agent",
+          "version": "DRAFT","id": "3NGDQ91O6S","alias": "TSTALIASID"
+        },
+        "actionGroup": "transaction_action_group","httpMethod": "POST","apiPath": "/execute_tool"
+      },
+      "expected_status": 400,
+      "expected_response_body": "{\"error\": \"Unknown operation: /execute_tool\"}"
+    }
+  ]
+}
+
+
+
+
+
