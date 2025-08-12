@@ -4,7 +4,7 @@
 # Fraud Investigator Assistant Agent 
 
 ## About the solution
-The **Fraud Investigator Assistant** demonstrate how customers can revolutionized their fraud investigation process using AWS Bedrock, MCP (Model Context Protocol) servers, and Strands expert agents. Conducting investigation on fraud cases can take a lot of time. In addition, following various compliance and security policy checks requires specialty skill in each domain. Building an AI expert network can accelerate this work and allow customer to run investigations faster. This innovative approach combining custom MCP servers for private data with open-source MCPs for public information gathering, dramatically reducing investigation timelines.
+The **Fraud Investigator Assistant** demonstrate how customers can revolutionize their fraud investigation process using AWS Bedrock, MCP (Model Context Protocol) servers, and Strands expert agents. Conducting investigation on fraud cases can take a lot of time. In addition, following various compliance and security policy checks requires specialty skill in each domain. Building an AI expert network can accelerate this work and allow customer to run investigations faster. This innovative approach combining custom MCP servers for private data with open-source MCPs for public information gathering, dramatically reducing investigation timelines.
 
 Assistance capabilities:
 - **Orchestrator Agent** - To decide which expert/s should be used when processing a request and which policy needs to be enforced.
@@ -13,11 +13,11 @@ Assistance capabilities:
 - **Online Search Expert** - Perform merchant verification and online appearance
 - **Policies Knowledge Base** - Allow scaling and executing of company policies for conducting investigation of a particular use case. 
 - **Providing Intelligent Insights** - Through conversational AI
-- **Integrating Tools** - For external data sources* via MCP protocol
+- **Integrating Tools** - For external data sources via MCP protocol
 
 ## Table of Contents
-1. [Architecture & Data Flow and ](#Architecture)
-2. [Screen Shoots](#Screenshots)
+1. [Architecture & Data Flow](#Architecture)
+2. [Screenshots](#Screenshots)
 3. [Tool Versions](#Versions)
 4. [Prerequisites](#Prerequisites)
 5. [Installation](#Deploy)
@@ -204,7 +204,7 @@ In an S3 bucket we have a DDL file and DML file that create database tables and 
 
 ### Manual Knowledge Base Sync
 
-Naviate to Amazon Bedrock console page. Click Knowledge Bases on the left side bar. Click on the created knowledge base, select the data source, click sync. This adds the data to the knowledge base.
+Navigate to Amazon Bedrock console page. Click Knowledge Bases on the left side bar. Click on the created knowledge base, select the data source, click sync. This adds the data to the knowledge base.
 
 ### Build and Deploy Everything
 
@@ -265,7 +265,7 @@ The system includes comprehensive test cases for:
 
 ### Using knowledgebase policies
 Before testing knowledge policy scenario make sure to upload a policy to the S3 bucket - see example `/data/knowledge-base/`
-After uploading the polices you must sync the agent with the knowledge base change:
+After uploading the policies you must sync the agent with the knowledge base change:
 
 ![sync kb](/images/screenshots/screen6.png)
 
